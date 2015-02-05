@@ -1,4 +1,5 @@
 require_relative "testing_library"
+require 'pp'
 
 unless File.exists?(".name")
   print "Please enter your name\n"
@@ -42,21 +43,46 @@ def joes_last_name(people)
 end
 
 def last_names(people)
+  results = []
+  people.each do |person, person_data|
+    results << person_data[:last_name]
+  end
+   results
 end
 
 def first_fav_genre(people)
+  results =[]
+  people.each do |person, person_data|
+    results << person_data[:preferences][:favorite_genres][0]
+
+  end
+    results
 end
 
 def joes_neighbor(people)
+
+  results = people["joe"][:sitting_next_to].to_s
+  people[results][:last_name]
+
 end
 
 def sues_meal(people)
+  people["sue"][:preferences][:meal]
+
 end
 
 def joes_first_letter_date(people)
+  results = []
+  results << people["joe"][:correspondence][0]
+  results[0][:date]
+
 end
 
 def sues_last_letter_desc(people)
+  results = []
+  results << people["sue"][:correspondence][1]
+  results[0][:description]
+
 end
 
 puts "*"*80
@@ -65,6 +91,7 @@ puts "The check method will run and tell you if the answer is correct"
 puts "*"*80
 
 results = []
+
 
 results << check("joes_last_name", joes_last_name(people), "Jenkins")
 results << check("last_names", last_names(people), ["Jenkins", "Summers"])
